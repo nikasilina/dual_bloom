@@ -1,0 +1,18 @@
+.rotating-art {
+animation: synth-art-rotation 70s linear infinite;
+}
+
+@keyframes synth-art-rotation {
+from {
+transform: translate(-50%, -50%) rotate(0deg);
+}
+to {
+transform: translate(-50%, -50%) rotate(360deg);
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+.rotating-art {
+animation: none;
+}
+}

@@ -1,0 +1,412 @@
+:root {
+  --ink: #0d0d0d;
+  --green: #145d25;
+  --paper: #fff;
+  --button: #edf6f7;
+  --stage: #c8c8c8;
+  --line: rgba(13, 13, 13, .72);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background: var(--stage);
+  font-family: "HeliosC", Arial, sans-serif;
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.instrument {
+  width: calc(100% - 96px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.console {
+  position: relative;
+  display: grid;
+  grid-template-columns: 307px minmax(520px, 1fr) 303px;
+  grid-template-rows: minmax(600px, calc(100vh - 278px)) 182px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--paper);
+}
+
+.console::before {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 18px;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 19px 19px 0 0;
+  background: var(--paper);
+  pointer-events: none;
+}
+
+.voice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 38px 33px 30px;
+}
+
+.voice--one {
+  border-right: 1px solid var(--ink);
+}
+
+.voice--two {
+  border-left: 1px solid var(--ink);
+}
+
+.control label,
+.effect label {
+  display: block;
+  margin-bottom: 13px;
+  color: var(--green);
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--line);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  margin-top: -9.5px;
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: #000;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: var(--line);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #000;
+}
+
+.wave-picker {
+  padding: 0;
+  border: 0;
+}
+
+.wave-picker legend {
+  margin-bottom: 14px;
+  color: var(--green);
+}
+
+.wave-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+
+.wave-grid button,
+.drum-grid button,
+.effect__switch,
+.start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0 0;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: var(--button);
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+
+.wave-grid button {
+  min-height: 56px;
+}
+
+.wave-grid button:hover,
+.drum-grid button:hover,
+.effect__switch:hover,
+.start-button:hover {
+  background: #dbe8e9;
+}
+
+.wave-grid button.is-active,
+.drum-grid button.is-looping,
+.effect__switch.is-active,
+.start-button.is-playing {
+  background: #c9d3d4;
+}
+
+.play-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--stage);
+}
+
+.play-surface h1 {
+  margin: 0 0 35px;
+  color: #eff9fa;
+  font-family: "Alte Haas Grotesk", "HeliosC", Arial, sans-serif;
+  font-size: clamp(100px, 10.8vw, 154px);
+  font-weight: 400;
+  line-height: .9;
+  letter-spacing: -.055em;
+  text-align: center;
+}
+
+.start-button {
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  width: 106px;
+  height: 58px;
+  transform: translateX(-50%);
+}
+
+.start-button:hover {
+  transform: translateX(-50%);
+}
+
+.drums,
+.effects,
+.master {
+  border-top: 1px solid var(--ink);
+}
+
+.drums {
+  padding: 18px 33px 22px;
+  border-right: 1px solid var(--ink);
+}
+
+.section-label {
+  margin: 0 0 14px;
+  color: var(--green);
+}
+
+.drum-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 9px;
+}
+
+.drum-grid button {
+  min-height: 50px;
+}
+
+.drum-grid button.is-hit {
+  background: #c9d3d4;
+  transform: scale(.98);
+}
+
+.effects {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr 50px 1fr;
+  align-items: start;
+  gap: 0 12px;
+  padding: 17px 20px 20px;
+}
+
+.fx-chain-label {
+  grid-column: 1/-1;
+  margin-bottom: 14px;
+}
+
+.effect__switch {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 12px;
+}
+
+.effect label {
+  margin: 0;
+  padding: 0 4px;
+}
+
+.effect input {
+  margin-top: 8px;
+}
+
+.chain-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  color: #555;
+  font-size: 20px;
+}
+
+.master {
+  padding: 18px 31px 20px;
+  border-left: 1px solid var(--ink);
+}
+
+.control--master {
+  margin: 18px 0 19px;
+}
+
+.output-mode {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr;
+  align-items: center;
+  color: var(--green);
+}
+
+.output-mode button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 2px 0 0;
+  border: 1px solid var(--ink);
+  background: var(--button);
+  cursor: pointer;
+}
+
+.output-mode button:nth-of-type(1) {
+  border-radius: 100px 0 0 100px;
+}
+
+.output-mode button:nth-of-type(2) {
+  margin-left: -1px;
+  border-radius: 0 100px 100px 0;
+}
+
+.output-mode button.is-active {
+  color: white;
+  background: #a7a7a7;
+}
+
+@media (max-width: 1050px) {
+  .instrument {
+    width: min(94%, 760px);
+    padding: 28px 0;
+  }
+
+  .console {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(500px, 60vh) auto auto;
+  }
+
+  .voice--two {
+    border-left: 0;
+  }
+
+  .play-surface {
+    grid-column: 1/-1;
+    grid-row: 2;
+    border-top: 1px solid var(--ink);
+  }
+
+  .drums {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .master {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .effects {
+    grid-column: 1/-1;
+    grid-row: 4;
+  }
+}
+
+@media (max-width: 640px) {
+  .instrument {
+    width: calc(100% - 20px);
+    padding: 10px 0;
+  }
+
+  .console {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .voice {
+    min-height: 540px;
+    padding: 32px 24px;
+  }
+
+  .voice--one,
+  .voice--two {
+    border: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .play-surface {
+    order: -1;
+    min-height: 470px;
+    border: 0;
+  }
+
+  .play-surface h1 {
+    font-size: 86px;
+  }
+
+  .drums,
+  .master {
+    border-right: 0;
+    border-left: 0;
+  }
+
+  .effects {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .chain-arrow {
+    display: none;
+  }
+
+  .fx-chain-label {
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
